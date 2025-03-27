@@ -1,0 +1,66 @@
+/* General Styling */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/* Heading */
+h2 {
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Filter Section */
+.filter-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.filter-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+}
+
+/* Product Cards */
+.product-card {
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Card Body */
+.card-body {
+    text-align: center;
+    background-color: #f1f1f1;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Product Title */
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff5733;
+}
+
+/* Price Text */
+.price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #28a745;
+}
