@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Engineering To-Do List</title>
+    <script defer src="script.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input, button { padding: 10px; margin: 5px; }
+        ul { list-style: none; padding: 0; }
+        li { margin: 5px 0; padding: 10px; border: 1px solid #ccc; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <h2>To-Do List (Auto-Save to Server)</h2>
+    <input type="text" id="taskInput" placeholder="Enter a new task">
+    <button onclick="addTask()">Add Task</button>
+    
+    <h3>Suggested Tasks</h3>
+    <ul id="taskList">
+        <li><span>Complete a Python project</span> <button onclick="deleteTask(this)">❌</button></li>
+        <li><span>Learn basic Linux commands</span> <button onclick="deleteTask(this)">❌</button></li>
+        <li><span>Set up a local web server (XAMPP, Nginx)</span> <button onclick="deleteTask(this)">❌</button></li>
+        <li><span>Practice SQL queries</span> <button onclick="deleteTask(this)">❌</button></li>
+        <li><span>Build a simple REST API</span> <button onclick="deleteTask(this)">❌</button></li>
+        <li><span>Study Data Structures & Algorithms</span> <button onclick="deleteTask(this)">❌</button></li>
+        <li><span>Implement a basic networking setup</span> <button onclick="deleteTask(this)">❌</button></li>
+        <li><span>Learn about cybersecurity threats</span> <button onclick="deleteTask(this)">❌</button></li>
+    </ul>
+</body>
+</html>

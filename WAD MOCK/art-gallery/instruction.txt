@@ -1,0 +1,39 @@
+🚀 Node.js Static Website for an Art Gallery (or Any Business)
+This Node.js application will serve a static website for an Art Gallery (or any business like restaurants, photography, etc.).
+✅ Uses Express.js to serve static files
+✅ Contains HTML, CSS, JavaScript, and images
+✅ Hosted on localhost with node server.js
+________________________________________
+📌 1. Set Up a Node.js Project
+Step 1: Create a Project Folder
+mkdir art-gallery
+cd art-gallery
+npm init -y
+Step 2: Install Express.js
+npm install express
+________________________________________
+📌 Folder Structure
+art-gallery/
+│-- public/
+│   ├── css/
+│   │   ├── style.css
+│   ├── images/
+│   │   ├── art1.jpg
+│   │   ├── art2.jpg
+│   ├── js/
+│   │   ├── script.js
+│   ├── index.html
+│-- server.js
+│-- package.json
+________________________________________
+
+📌 7. Start the Server
+Run the Node.js server:
+node server.js
+✅ Now, visit http://localhost:3000/ 🎨🎉
+________________________________________
+🎯 Summary
+•	Node.js Express serves static files from public/
+•	HTML + CSS + JavaScript create a responsive Art Gallery
+•	Scalable → You can add more images, pages, or a contact form
+

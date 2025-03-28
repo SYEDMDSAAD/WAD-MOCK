@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple User Registration</title>
+    <script defer src="script.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input { padding: 8px; width: 250px; margin: 5px; display: block; }
+        button { padding: 10px 20px; cursor: pointer; }
+        span { font-size: 14px; margin-left: 5px; }
+        .valid { color: green; }
+        .invalid { color: red; }
+    </style>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form id="registrationForm">
+        <input type="text" id="username" placeholder="Enter Username" onkeyup="checkAvailability('username')">
+        <span id="usernameStatus"></span>
+
+        <input type="email" id="email" placeholder="Enter Email" onkeyup="checkAvailability('email')">
+        <span id="emailStatus"></span>
+
+        <input type="password" id="password" placeholder="Enter Password">
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

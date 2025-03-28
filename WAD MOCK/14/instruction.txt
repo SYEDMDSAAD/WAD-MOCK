@@ -1,0 +1,176 @@
+🚀 Angular User Registration Form with Reactive Forms & Real-Time Validation
+This Angular form includes:
+✅ Reactive Forms for handling form inputs
+✅ Real-time validation for email, password, and phone number
+✅ Error messages for invalid fields
+________________________________________
+📌 1. Install Angular (If Not Installed)
+If you don’t have Angular installed, run:
+npm install -g @angular/cli
+________________________________________
+📌 2. Create a New Angular Project
+ng new user-registration
+cd user-registration
+ng add @angular/forms
+________________________________________
+📌 3. Generate a Registration Component
+ng generate component registration
+________________________________________
+📌 4. Update registration.component.ts (Form Logic)
+Replace the contents of registration.component.ts with:
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
+})
+export class RegistrationComponent {
+  registrationForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.registrationForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  // Custom validator for matching passwords
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  // Convenience getter for form controls
+  get f() {
+    return this.registrationForm.controls;
+  }
+
+  // Submit function
+  onSubmit() {
+    if (this.registrationForm.valid) {
+      console.log("Form Submitted", this.registrationForm.value);
+      alert("Registration Successful!");
+    }
+  }
+}
+________________________________________
+📌 5. Update registration.component.html (Form UI)
+Replace the contents of registration.component.html with:
+<div class="container">
+  <h2>User Registration</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <!-- Username -->
+    <label>Username:</label>
+    <input type="text" formControlName="username">
+    <span class="error" *ngIf="f.username.invalid && f.username.touched">
+      Username must be at least 3 characters long.
+    </span>
+
+    <!-- Email -->
+    <label>Email:</label>
+    <input type="email" formControlName="email">
+    <span class="error" *ngIf="f.email.invalid && f.email.touched">
+      Enter a valid email.
+    </span>
+
+    <!-- Phone -->
+    <label>Phone:</label>
+    <input type="text" formControlName="phone">
+    <span class="error" *ngIf="f.phone.invalid && f.phone.touched">
+      Enter a valid 10-digit phone number.
+    </span>
+
+    <!-- Password -->
+    <label>Password:</label>
+    <input type="password" formControlName="password">
+    <span class="error" *ngIf="f.password.invalid && f.password.touched">
+      Password must be at least 6 characters.
+    </span>
+
+    <!-- Confirm Password -->
+    <label>Confirm Password:</label>
+    <input type="password" formControlName="confirmPassword">
+    <span class="error" *ngIf="registrationForm.hasError('mismatch') && f.confirmPassword.touched">
+      Passwords do not match.
+    </span>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+  </form>
+</div>
+________________________________________
+📌 6. Add CSS for Styling (registration.component.css)
+.container {
+  width: 300px;
+  margin: auto;
+  text-align: left;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+}
+.error {
+  color: red;
+  font-size: 12px;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+________________________________________
+📌 7. Register the Component in app.module.ts
+Make sure you have ReactiveFormsModule imported in app.module.ts:
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegistrationComponent } from './registration/registration.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    RegistrationComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+________________________________________
+📌 8. Add Component to app.component.html
+Replace the contents of app.component.html with:
+<app-registration></app-registration>
+________________________________________
+🎯 How It Works
+1️⃣ User enters details
+2️⃣ Real-time validation shows errors instantly
+3️⃣ Password must match
+4️⃣ Submit is disabled until form is valid
+5️⃣ On submit, console logs the data & alerts success
+________________________________________
+📌 9. Run the Angular App
+Start the project with:
+ng serve
+Then open http://localhost:4200/ 🎉
+________________________________________

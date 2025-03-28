@@ -1,0 +1,51 @@
+🚀 Node.js Product Catalog with JSON API & Frontend
+This project consists of:
+✅ A Node.js server serving product data from products.json
+✅ A REST API (/api/products) to fetch product details
+✅ A simple HTML + JavaScript frontend displaying products dynamically
+________________________________________
+📌 1. Set Up the Node.js Server
+Step 1: Initialize a Node.js Project
+mkdir product-catalog
+cd product-catalog
+npm init -y
+Step 2: Install Required Packages
+npm install express cors
+________________________________________
+📌 4. Start the Server
+Run the Node.js server:
+node server.js
+✅ Now, your API is running at http://localhost:3000/api/products 🎉
+________________________________________
+________________________________________
+✅ Final Output
+When you open index.html, it fetches products from http://localhost:3000/api/products and displays them as cards:
++----------------------+
+|  [Image]            |
+|  Laptop             |
+|  Price: $999        |
++----------------------+
+
++----------------------+
+|  [Image]            |
+|  Smartphone         |
+|  Price: $699        |
++----------------------+
+
++----------------------+
+|  [Image]            |
+|  Headphones         |
+|  Price: $199        |
++----------------------+
+
++----------------------+
+|  [Image]            |
+|  Smartwatch         |
+|  Price: $299        |
++----------------------+
+________________________________________
+🎯 Summary
+•	Node.js Express Server (server.js) serves products.json as an API.
+•	REST API Endpoint (/api/products) returns product data.
+•	Frontend (index.html) fetches data via fetch() and displays it dynamically.
+

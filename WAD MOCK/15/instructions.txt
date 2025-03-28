@@ -1,0 +1,140 @@
+🚀 Angular Basic Calculator using Two-Way Data Binding
+This simple calculator app in Angular allows users to perform:
+✅ Addition (+)
+✅ Subtraction (-)
+✅ Multiplication (×)
+✅ Division (÷)
+It uses Angular’s two-way data binding (ngModel) to instantly update results when users input numbers and select operations.
+________________________________________
+📌 1. Install Angular (If Not Installed)
+If you don’t have Angular installed, run:
+npm install -g @angular/cli
+________________________________________
+📌 2. Create a New Angular Project
+ng new calculator-app
+cd calculator-app
+ng add @angular/forms
+________________________________________
+📌 3. Generate a Calculator Component
+ng generate component calculator
+________________________________________
+📌 4. Update calculator.component.ts (Calculator Logic)
+Replace the contents of calculator.component.ts with:
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-calculator',
+  templateUrl: './calculator.component.html',
+  styleUrls: ['./calculator.component.css']
+})
+export class CalculatorComponent {
+  num1: number = 0;
+  num2: number = 0;
+  result: number = 0;
+  operator: string = '+';
+
+  // Function to perform calculation
+  calculate() {
+    switch (this.operator) {
+      case '+':
+        this.result = this.num1 + this.num2;
+        break;
+      case '-':
+        this.result = this.num1 - this.num2;
+        break;
+      case '*':
+        this.result = this.num1 * this.num2;
+        break;
+      case '/':
+        this.result = this.num2 !== 0 ? this.num1 / this.num2 : NaN;
+        break;
+    }
+  }
+}
+________________________________________
+📌 5. Update calculator.component.html (Calculator UI)
+Replace the contents of calculator.component.html with:
+<div class="calculator">
+  <h2>Angular Calculator</h2>
+
+  <input type="number" [(ngModel)]="num1" placeholder="Enter first number">
+  
+  <select [(ngModel)]="operator">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">×</option>
+    <option value="/">÷</option>
+  </select>
+
+  <input type="number" [(ngModel)]="num2" placeholder="Enter second number">
+
+  <button (click)="calculate()">Calculate</button>
+
+  <h3>Result: {{ result }}</h3>
+</div>
+________________________________________
+📌 6. Add Styles in calculator.component.css
+.calculator {
+  width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+}
+button {
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: darkgreen;
+}
+________________________________________
+📌 7. Register the Component in app.module.ts
+Make sure you import FormsModule in app.module.ts:
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { CalculatorComponent } from './calculator/calculator.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    CalculatorComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+________________________________________
+📌 8. Add Component to app.component.html
+Replace the contents of app.component.html with:
+<app-calculator></app-calculator>
+________________________________________
+📌 9. Run the Angular App
+Start the project with:
+ng serve
+Then open http://localhost:4200/ 🎉
+________________________________________
+🎯 How It Works
+1️⃣ User inputs two numbers
+2️⃣ Selects an operation (+, -, ×, ÷)
+3️⃣ Clicks "Calculate"
+4️⃣ Instantly sees the result using two-way data binding (ngModel)
+________________________________________
+✅ Features Included
+✔ Two-way data binding (ngModel)
+✔ Instant calculations without refreshing
+✔ Dropdown for selecting operations
+✔ Styled UI with a simple layout
+

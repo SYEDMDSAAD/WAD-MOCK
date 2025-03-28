@@ -1,0 +1,66 @@
+🚀 Employee Directory using Node.js, JSON API & Frontend
+This project consists of:
+✅ A Node.js server that serves employee data from employees.json
+✅ A REST API (/api/employees) to fetch employee details
+✅ A simple HTML + JavaScript frontend to display employees dynamically
+________________________________________
+📌 1. Set Up the Node.js Project
+Step 1: Create a Project Folder
+mkdir employee-directory
+cd employee-directory
+npm init -y
+Step 2: Install Required Packages
+npm install express cors
+________________________________________
+📌 2. Folder Structure
+employee-directory/
+│-- public/
+│   ├── css/
+│   │   ├── style.css
+│   ├── js/
+│   │   ├── script.js
+│   ├── images/
+│   │   ├── emp1.jpg
+│   │   ├── emp2.jpg
+│   ├── index.html
+│-- employees.json
+│-- server.js
+│-- package.json
+________________________________________
+
+📌 8. Start the Server
+Run the Node.js server:
+node server.js
+✅ Now, visit http://localhost:3000/ to see the Employee Directory! 🎉
+________________________________________
+✅ Final Output
+When you open index.html, it fetches employee data from http://localhost:3000/api/employees and displays them in cards:
++-------------------------------------+
+|  [Image]                            |
+|  Alice Johnson                      |
+|  Designation: Software Engineer     |
+|  Department: IT                     |
+|  Salary: $60000                     |
++-------------------------------------+
+
++-------------------------------------+
+|  [Image]                            |
+|  Bob Smith                          |
+|  Designation: HR Manager            |
+|  Department: HR                     |
+|  Salary: $55000                     |
++-------------------------------------+
+
++-------------------------------------+
+|  [Image]                            |
+|  Charlie Brown                      |
+|  Designation: Marketing Executive   |
+|  Department: Marketing              |
+|  Salary: $50000                     |
++-------------------------------------+
+________________________________________
+🎯 Summary
+•	Node.js Express Server (server.js) serves employees.json as an API.
+•	REST API Endpoint (/api/employees) returns employee data.
+•	Frontend (index.html) fetches data via fetch() and displays it dynamically.
+

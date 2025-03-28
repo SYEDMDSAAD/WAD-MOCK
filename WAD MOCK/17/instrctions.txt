@@ -1,0 +1,21 @@
+🚀 Node.js API + Frontend to Display User Data
+This project consists of:
+✅ A Node.js server (serves user data from users.json)
+✅ A REST API (/api/users to fetch users)
+✅ A simple HTML + JavaScript frontend (fetches and displays users dynamically)
+________________________________________
+📌 1. Setup the Node.js Server
+Step 1: Initialize a Node.js Project
+mkdir user-api
+cd user-api
+npm init -y
+Step 2: Install Required Packages
+npm install express cors
+________________________________________
+
+📌 4. Start the Server
+Run the Node.js server:
+node server.js
+✅ Now, your API is running at http://localhost:3000/api/users 🎉
+________________________________________
+

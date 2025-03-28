@@ -1,0 +1,112 @@
+Here’s a basic Angular To-Do List that allows users to:
+✅ Add tasks
+✅ Edit tasks
+✅ Delete tasks
+✅ Use two-way data binding (ngModel) for dynamic updates
+________________________________________
+🚀 Steps to Implement
+1️⃣ Set up an Angular app (ng new todo-app)
+2️⃣ Create a ToDoComponent (ng generate component todo)
+3️⃣ Implement todo.component.html (UI)
+4️⃣ Implement todo.component.ts (Logic)
+________________________________________
+📌 1. Install Angular & Set Up a New App
+npm install -g @angular/cli
+ng new todo-app
+cd todo-app
+ng generate component todo
+________________________________________
+📌 2. Modify app.module.ts (Import FormsModule for ngModel)
+Update src/app/app.module.ts:
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { AppComponent } from './app.component';
+import { TodoComponent } from './todo/todo.component';
+
+@NgModule({
+  declarations: [AppComponent, TodoComponent],
+  imports: [BrowserModule, FormsModule], // Add FormsModule here
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+________________________________________
+📌 3. Create todo.component.html (UI)
+<div class="container">
+  <h2>To-Do List</h2>
+  
+  <!-- Add New Task -->
+  <input type="text" [(ngModel)]="newTask" placeholder="Enter a task..." />
+  <button (click)="addTask()">Add Task</button>
+
+  <ul>
+    <li *ngFor="let task of tasks; let i = index">
+      <input type="text" [(ngModel)]="task.name" />
+      <button (click)="deleteTask(i)">❌</button>
+    </li>
+  </ul>
+</div>
+________________________________________
+📌 4. Create todo.component.ts (Logic)
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css']
+})
+export class TodoComponent {
+  newTask: string = '';
+  tasks: { name: string }[] = [];
+
+  // Add Task
+  addTask() {
+    if (this.newTask.trim() !== '') {
+      this.tasks.push({ name: this.newTask });
+      this.newTask = ''; // Clear input after adding
+    }
+  }
+
+  // Delete Task
+  deleteTask(index: number) {
+    this.tasks.splice(index, 1);
+  }
+}
+________________________________________
+📌 5. Add Styles in todo.component.css (Optional)
+.container {
+  width: 300px;
+  margin: 20px auto;
+  text-align: center;
+}
+input {
+  padding: 5px;
+  margin: 5px;
+  width: 200px;
+}
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+________________________________________
+📌 6. Use the Component in app.component.html
+<app-todo></app-todo>
+________________________________________
+🎯 How It Works
+✔ ngModel (Two-way Binding) updates tasks dynamically
+✔ Click "Add Task" to push new tasks into the list
+✔ Click "❌" to delete a task
+✔ Edit directly in the input field (updates instantly)
+✅ Now run it!
+ng serve
+Go to http://localhost:4200/ and start adding tasks! 🚀

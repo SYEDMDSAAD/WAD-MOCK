@@ -1,0 +1,243 @@
+🚀 Angular Course Enrollment System
+This Angular app includes:
+✅ User Registration (Stores user data)
+✅ User Login (Authenticates users)
+✅ Profile Component (Displays user data after login)
+✅ LocalStorage (Stores users for persistence)
+________________________________________
+📌 1. Install Angular (If Not Installed)
+If you don’t have Angular installed, run:
+npm install -g @angular/cli
+________________________________________
+📌 2. Create a New Angular Project
+ng new course-enrollment
+cd course-enrollment
+ng add @angular/forms
+ng generate component registration
+ng generate component login
+ng generate component profile
+ng generate service auth
+________________________________________
+🎯 Project Structure
+course-enrollment/
+│-- src/
+│   ├── app/
+│   │   ├── registration/
+│   │   ├── login/
+│   │   ├── profile/
+│   │   ├── auth.service.ts
+│   │   ├── app-routing.module.ts
+│   │   ├── app.component.ts
+│   │   ├── app.module.ts
+________________________________________
+📌 3. Setup Routing in app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/register', pathMatch: 'full' },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+________________________________________
+📌 4. Create auth.service.ts (Authentication Service)
+This service manages user registration, login, and session handling.
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private loggedInUser: any = null;
+
+  constructor() {}
+
+  // Register a new user
+  register(user: any) {
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    users.push(user);
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+
+  // Login a user
+  login(email: string, password: string): boolean {
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    let user = users.find((u: any) => u.email === email && u.password === password);
+    if (user) {
+      this.loggedInUser = user;
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      return true;
+    }
+    return false;
+  }
+
+  // Get logged-in user
+  getLoggedInUser() {
+    if (!this.loggedInUser) {
+      this.loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+    }
+    return this.loggedInUser;
+  }
+
+  // Logout
+  logout() {
+    this.loggedInUser = null;
+    localStorage.removeItem('loggedInUser');
+  }
+}
+________________________________________
+📌 5. Create registration.component.ts
+Handles user registration and stores data in localStorage.
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
+})
+export class RegistrationComponent {
+  registrationForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    this.registrationForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  onRegister() {
+    if (this.registrationForm.valid) {
+      this.authService.register(this.registrationForm.value);
+      alert('Registration successful!');
+      this.router.navigate(['/login']);
+    }
+  }
+}
+📌 6. Create registration.component.html
+<h2>Register</h2>
+<form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+  <input type="text" formControlName="name" placeholder="Full Name">
+  <input type="email" formControlName="email" placeholder="Email">
+  <input type="password" formControlName="password" placeholder="Password">
+  <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+</form>
+________________________________________
+📌 7. Create login.component.ts
+Handles user login.
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+  loginForm: FormGroup;
+  errorMessage: string = '';
+
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
+
+  onLogin() {
+    if (this.authService.login(this.loginForm.value.email, this.loginForm.value.password)) {
+      this.router.navigate(['/profile']);
+    } else {
+      this.errorMessage = "Invalid email or password.";
+    }
+  }
+}
+📌 8. Create login.component.html
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+  <input type="email" formControlName="email" placeholder="Email">
+  <input type="password" formControlName="password" placeholder="Password">
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+</form>
+<p class="error">{{ errorMessage }}</p>
+________________________________________
+📌 9. Create profile.component.ts
+Displays user details after login.
+import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent {
+  user: any;
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.user = this.authService.getLoggedInUser();
+    if (!this.user) {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+}
+📌 10. Create profile.component.html
+<h2>Welcome, {{ user?.name }}</h2>
+<p>Email: {{ user?.email }}</p>
+<button (click)="logout()">Logout</button>
+________________________________________
+📌 11. Register Components in app.module.ts
+Make sure you import FormsModule and ReactiveFormsModule:
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    RegistrationComponent,
+    LoginComponent,
+    ProfileComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+________________________________________
+📌 12. Run the App
+ng serve
+✅ Open http://localhost:4200/ 🎉
+________________________________________
+
